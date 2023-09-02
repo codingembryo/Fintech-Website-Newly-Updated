@@ -1,0 +1,32 @@
+create virtual env
+install django
+install mysql(he used mysql-connector but i used xampp)
+start project(django-admin startproject fintechnew)
+list directory by using DIR
+enter the manage.py folder
+start app
+after starting app. Then go to VS CODE
+go to settings.py and add the app under installed app
+and configure your database.
+Configure your localhost to be 127.0.0.1.
+Next do this python manage.py migrate
+After,create superuser
+username -self
+pass 123456
+email self@gmail.com
+
+After this,do GIT
+
+$ git config --global user.name "Your Name"
+$ git config --global user.email "you@youraddress.com"
+$ git config --global push.default matching
+$ git config --global alias.co checkout
+$ git init
+
+
+https://studygyaan.com/django
+
+
+
+
+

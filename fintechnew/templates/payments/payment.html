@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section style="height: 100vh;">
+<h1 class="text-center">{{provider.service_name}}</h1>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center text-capitalize">{{provider.service_name}}</h4>
+          {%if "tv" in provider.category.identifier%}
+          <form method="post" action="{% url 'Payments:verify_smartcard' %}">
+            {% csrf_token %}
+            <div class="form-group mb-4">
+              <label for="phone_number">Smartcard Number</label>
+              <input type="text" class="form-control" id="phone_number" name="smart_number" placeholder="Enter smart card number">
+            </div>
+            <div class="form-group mb-4">
+              <input type="hidden" name="serviceid" class="form-control" id="" value="{{provider.service_id}}" placeholder="">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
+
+          {% else %}
+          <form method="post" action="">
+            {% csrf_token %}
+            <div class="form-group mb-4">
+              <label for="phone_number">Phone Number</label>
+              <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter phone number">
+            </div>
+            <div class="form-group">
+              <label for="amount">amount</label>
+              <input type="text" name="amount" class="form-control" id="" placeholder="Enter amount">
+            </div>
+            <div class="form-group mb-4">
+              <input type="hidden" name="serviceid" class="form-control" id="" value="{{provider.service_id}}" placeholder="">
+            </div>
+            {%if "data" in  provider.service_id %}
+            <div class="form-group">
+              <label for="data_plan">Choose Plan</label>
+              <select class="form-select form-select-lg mb-3" aria-label="Large select example">
+                <option selected>Select data plan</option>
+                {%for plan in data_plans %}
+                <option value="{{plan.variation_code}}" data-attribute="{{plan.variation_amount}}">{{plan.name}}</option>
+                {%endfor%}
+              </select>
+            </div>
+            {%endif%}
+            <br><br>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+{% endblock %}

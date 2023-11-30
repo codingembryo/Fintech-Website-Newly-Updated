@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block content%}
+<section style="height: 100vh;">
+ <div class="container mt-4">
+    <h2 class="text-center mt-4">Tv Subscription Service</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">Customer Details</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>  
+                            <td>Customer Name:</td>
+                            <td>{{customer.Customer_Name}}</td>  
+                          </tr>
+                          <tr>
+                            <td>Status:</td>  
+                            <td>{{customer.Status}}</td>  
+                          </tr>
+                          <tr> 
+                            <td>Due Date:</td> 
+                            <td>{{customer.Due_Date}}</td>  
+                          </tr>
+                          <tr>  
+                            <td>Customer Number:</td>
+                            <td>{{customer.Customer_Number}}</td>  
+                          </tr>
+                          <tr>  
+                            <td>Customer Type</td>
+                            <td>{{customer.Customer_Type}}</td>  
+                          </tr>
+                          <tr>  
+                            <td>Current Package</td>
+                            <td>{{customer.Current_Bouquet}}</td>  
+                          </tr>
+                          <tr>
+                            <td>Current Bouquet Code:</td>
+                            <td> {{customer.Current_Bouquet_Code}}</td>
+                          </tr>
+                         
+                          <tr> 
+                            <td>Amount:</td> 
+                            <td>N{{customer.Renewal_Amount}}</td>  
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+                      <a href="#" class="btn btn-primary">Renew Now</a>
+                      <a href="#" class="btn btn-primary">Change Plan</a>          
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+</section>
+
+
+{%endblock content%}

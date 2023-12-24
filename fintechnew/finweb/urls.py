@@ -11,10 +11,8 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('support/', views.support, name='support'),
     path('signup/', views.signup, name='signup'),
-    path('airtime/', views.airtime, name='airtime'),
-    path('index/', views.index, name='index'),
-    path('data/', views.display_data, name='data'),
-
+    path('profile/dashboard', views.profile_dashboard, name='dashboard'),
     
+   
 ]
 

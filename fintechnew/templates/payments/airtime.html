@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<section style="height: 100vh;">
+<h1 style="text-align: center;">{{category.name}}</h1>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-9">
+              <div class="row">
+                {% for provider in providers %}
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <img src="{{provider.logo.url}}" alt="provider-logo" class="img-thumbnail object-fit-contain"  >        
+                        <div class="mt-4 ">
+                         <p>{{provider.service_name}}</p>
+                        </div>
+                        <a href="{%url 'Payments:buy-now' provider.service_id %}" class="btn btn-primary">buy {{provider.category.identifier}}</a>
+                      </div>
+                      </div>
+                   </div>
+                {% endfor %}
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+{% endblock %}

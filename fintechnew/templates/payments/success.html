@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section style="height: 100vh;">
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Transaction Successful</h3>
+					<p>Product name: {{status_data.product_name}}</p>
+					<p>Status: {{status_data.status}}</p>
+					<p>Amount:{{status_data.amount}}</p>
+					<p>Phone:{{status_data.phone}}</p>
+					{%if status_data.type == "Electricity Bill"%}
+					<p>Token:{{token}}</p>
+					<p>Total Units:{{unit}}</p>
+					{%endif%}
+            </div>
+        </div>
+    </div>
+</section>  
+{% endblock %}
+
+<!-- Add this script at the end of your template -->
+<!-- <script>
+    $('#category').on('change', function(e){
+		$(this).find("option[value='0']").remove();
+	    	var idxy = $("select#category option:selected").attr('value');
+	    	 $('#services').html('');
+             $("#quick-load").addClass('show');
+             $("#quick-form").css('opacity','0.3');          
+	    	 for(var i = 0; i < optionVarsx.length; i++) {
+	            var code = optionVarsx[i].id;	                     
+		      	if(code == idxy) {
+		            $("#quick-load").removeClass('show');
+		            $("#quick-form").css('opacity','1.0'); 
+		            $('#class').append('<option value="">Select Above First</option>');
+		            $.each(optionVarsx[i].prods,function (index,sectionObj) {
+		                 $('#services').append('<option value='+sectionObj.slug+'>'+sectionObj.name+'</option>');
+		            });
+	            }
+	         }
+	      	e.preventDefault();
+		});
+	</script>
+	<script type="text/javascript">
+		function ValidateEmail(recepient)   
+			{  
+			 	if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(recepient))  
+			  	{  
+			    	return (true)  
+			  	}   
+			    return (false)  
+			}
+			function validatePhoneNumber(elementValue){  
+				var phoneNumberPattern = /^\(?(\d{11})\)?$/;  
+				return phoneNumberPattern.test(elementValue);  
+			} 
+			$('#recepient').keyup(function () {
+				var recepient = $('#recepient').val();
+				// alert(validatePhoneNumber(recepient));
+				if ((validatePhoneNumber(recepient)  == true) || (ValidateEmail(recepient) == true)) {
+					$.ajax({
+				    type: "GET",
+				    url: "ajax/verify-friend",
+				    data: "recepient="+recepient,
+				    dataType: 'json',
+				    cache: false,
+				    beforeSend: function () { 
+				    	$('#invite_button').removeAttr('disabled','disabled');
+				    	$('#refer_ch').css('display','none');
+				    },
+				    success: function(data, textStatus, jQxhr) {
+				    	if (data == true) {
+				    		$('#refer_ch').css('display','block');
+							$('#refer_ch').html('<strong>'+recepient+' is already using Vtpass.com. Refer another Friend</strong>');
+							$('#invite_button').attr('disabled','disabled');
+				    	}else{
+				    		$('#invite_button').removeAttr('disabled','disabled');
+				    	}
+				    	
+				    }
+				});
+				}else{					
+					$('#refer_ch').css('display','block');
+					$('#invite_button').removeAttr('disabled','disabled');
+					$('#refer_ch').delay(1000).html('<strong>Email or Phone Number Invalid</strong>');
+				}
+			}); 
+	</script>
+	<script type="text/javascript">
+		var refUrl = document.referrer.replace(/^https?:\/\//,'');
+	var p_url = "sandbox.vtpass.com/404";
+	var park = 1307140408;
+		$.ajax({
+	    type: "GET",
+	    url: "ajax/monitor",
+	    data: "ref="+refUrl+"&user="+park+"&p_url="+p_url,
+	    dataType: 'json',
+	    cache: false,
+	    beforeSend: function () { 
+	    },
+	    success: function(data, textStatus, jQxhr) {
+	    	console.log(data);
+	    }
+	});
+	</script>
+
+
+	<!-- Remark -->
+	<script type="text/javascript">
+		/* <![CDATA[ */
+var google_conversion_id = 1016066596;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+	</script>
+	<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+	</script>
+	<noscript>
+		<div style="display:inline;">
+			<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1016066596/?guid=ON&amp;script=0"/>
+</div>
+	</noscript>
+
+
+	<!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+		var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/57bf74c12b03647ba16bae9b/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+// alert(document.referrer);
+	</script> -->
+
+
+
+
+

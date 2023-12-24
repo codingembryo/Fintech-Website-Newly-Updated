@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block content%}
+<section style="height: 100vh;">
+ <div class="container mt-4">
+    <h2 class="text-center mt-4">{{service_id}} Subscription Service</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="data_plan">Choose Package Plan</label>
+                            <select class="form-select form-select-lg mb-3" name="variation_code" aria-label="Large select example" id="planSelect">
+                              <option selected>Select package plan</option>
+                              {%for plan in package_plans %}
+                              <option value="{{plan.variation_code}}" data-attribute="{{plan.variation_amount}}">{{plan.name}}</option>
+                              {%endfor%}
+                            </select>
+                          </div>
+                        <div class="form-group mb-4">
+                          <label for="phone_number">Smart Card Number</label>
+                          <input type="text" class="form-control" id="phone_number" name="card_number" placeholder="Enter Smart Card number">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="phone_number">Phone Number</label>
+                            <input type="text" class="form-control" id="phone_number" name="phone" placeholder="Enter Smart Card number">
+                          </div>
+                        <div class="form-group">
+                          <label for="amount">amount</label>
+                          <input type="text" name="amount" class="form-control" id="amt" placeholder="Enter amount">
+                        </div>
+                        <div class="form-group mb-4">
+                          <input type="hidden" name="serviceid" class="form-control" id="" value="{{service_id}}" placeholder="">
+                        </div>            
+                       
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                      </form>
+                      
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+</section>
+
+
+{%endblock content%}
+
+{% block extra_script %}
+<script>
+    // Function to handle the change event
+    function handleSelectChange() {
+      // Get the select element
+      var selectElement = document.getElementById("planSelect");
+      let amountElement = document.getElementById('amt')
+  
+      // Get the selected option
+      var selectedOption = selectElement.options[selectElement.selectedIndex];
+  
+      // Get the value and data-attribute of the selected option
+      var selectedValue = selectedOption.value;
+      var selectedDataAttribute = selectedOption.getAttribute("data-attribute");
+  
+      // Display the selected values
+      console.log("Selected Value: " + selectedValue);
+      console.log("Selected Data Attribute: " + selectedDataAttribute);
+      amountElement.value = selectedDataAttribute
+    }
+  
+    // Add an event listener for the change event
+    document.getElementById("planSelect").addEventListener("change", handleSelectChange);
+  </script>
+{% endblock extra_script %}

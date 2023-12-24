@@ -65,12 +65,12 @@ def signup(request):
 @login_required
 def profile_dashboard(request):
     context={}
-    categories_qs=Category.objects.all()
+    categories_qs=Category.objects.all()[:4]
     if categories_qs.exists():
         context['categories']=categories_qs
     else:
         get_service_categories()
-        categories_qs=Category.objects.all()
+        categories_qs=Category.objects.all()[:4]
         context['categories']=categories_qs
     return render(request, "finweb/dashboard.html", context)
 

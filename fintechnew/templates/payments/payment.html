@@ -12,7 +12,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title text-center text-capitalize">{{provider.service_name}}</h4>
-          {%if "tv" in provider.category.identifier%}
+          {% if "tv" in provider.category.identifier%}
           <form method="post" action="{% url 'Payments:verify_smartcard' %}">
             {% csrf_token %}
             <div class="form-group mb-4">
@@ -25,9 +25,29 @@
             <br>
             <button type="submit" class="btn btn-primary">Send</button>
           </form>
-
+          {% elif "bill" in provider.category.identifier %}
+          <form method="post" action="{% url 'Payments:electric-meter' %}">
+            {% csrf_token %}
+            <div class="form-group mb-4">
+              <label for="phone_number">Meter Number</label>
+              <input type="text" class="form-control" id="phone_number" name="meter_number" placeholder="Enter your meter number">
+            </div>
+            <div class="form-group mb-4">
+              <input type="hidden" name="serviceid" class="form-control" id="" value="{{provider.service_id}}" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="meter_type">Meter type</label>
+              <select class="form-select form-select-lg mb-3" name="meter_type_choice" aria-label="Large select example" id="dataPlan">
+                <option selected>Select meter type</option>
+                <option value="prepaid">Prepaid</option>
+                <option value="postpaid">Postpaid<option>
+              </select>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
           {% else %}
-          <form method="post" action="">
+          <form method="post" action="{%url 'Payments:mobile-payment'%}">
             {% csrf_token %}
             <div class="form-group mb-4">
               <label for="phone_number">Phone Number</label>
@@ -35,7 +55,7 @@
             </div>
             <div class="form-group">
               <label for="amount">amount</label>
-              <input type="text" name="amount" class="form-control" id="" placeholder="Enter amount">
+              <input type="text" name="amount" class="form-control" id="subAmt" placeholder="Enter amount">
             </div>
             <div class="form-group mb-4">
               <input type="hidden" name="serviceid" class="form-control" id="" value="{{provider.service_id}}" placeholder="">
@@ -43,7 +63,7 @@
             {%if "data" in  provider.service_id %}
             <div class="form-group">
               <label for="data_plan">Choose Plan</label>
-              <select class="form-select form-select-lg mb-3" aria-label="Large select example">
+              <select class="form-select form-select-lg mb-3" name="plan_choice" aria-label="Large select example" id="dataPlan">
                 <option selected>Select data plan</option>
                 {%for plan in data_plans %}
                 <option value="{{plan.variation_code}}" data-attribute="{{plan.variation_amount}}">{{plan.name}}</option>
@@ -62,3 +82,29 @@
 </div>
 </section>
 {% endblock %}
+
+{% block extra_script %}
+<script>
+    // Function to handle the change event
+    function handleSelectChange() {
+      // Get the select element
+      var selectElement = document.getElementById("dataPlan");
+      let amountElement = document.getElementById('subAmt')
+  
+      // Get the selected option
+      var selectedOption = selectElement.options[selectElement.selectedIndex];
+  
+      // Get the value and data-attribute of the selected option
+      var selectedValue = selectedOption.value;
+      var selectedDataAttribute = selectedOption.getAttribute("data-attribute");
+  
+      // Display the selected values
+      console.log("Selected Value: " + selectedValue);
+      console.log("Selected Data Attribute: " + selectedDataAttribute);
+      amountElement.value = selectedDataAttribute
+    }
+  
+    // Add an event listener for the change event
+    document.getElementById("dataPlan").addEventListener("change", handleSelectChange);
+  </script>
+{% endblock extra_script %}

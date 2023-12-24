@@ -4,17 +4,50 @@
 {%block content%}
 <section style="height: 100vh;">
  <div class="container mt-4">
-    <h2 class="text-center mt-4">Tv Subscription Service</h2>
+    <h2 class="text-center mt-4">{{service_id}} Subscription Service</h2>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
+                  {%if "electric" in service_id %}
                     <table class="table table-striped">
                         <thead>
                           <tr>
                             <th scope="col">Customer Details</th>
                           </tr>
                         </thead>
+                        
+                        <tbody>
+                          <tr>  
+                            <td>Customer Name:</td>
+                            <td>{{customer.Customer_Name}}</td>  
+                          </tr>
+                          <!-- <tr>
+                            <td>Status:</td>  
+                            <td>{{customer.Status}}</td>  
+                          </tr>
+                          <tr> 
+                            <td>Due Date:</td> 
+                            <td>{{customer.Due_Date}}</td>  
+                          </tr> -->
+                          <tr>  
+                            <td>Customer District:</td>
+                            <td>{{customer.Customer_District}}</td>  
+                          </tr>
+                          <tr>  
+                            <td>Customer Meter Number</td>
+                            <td>{{customer.Meter_Number}}</td>  
+                          </tr>
+                          <tr>  
+                            <td>Current Address</td>
+                            <td>{{customer.Address}}</td>  
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+                      <a href="{%url 'Payments:buy-electricity'%}" class="btn btn-primary">Buy Unit Now</a>
+                      {% else %}
+                      <table class="table table-striped">
                         <tbody>
                           <tr>  
                             <td>Customer Name:</td>
@@ -52,8 +85,10 @@
                          
                         </tbody>
                       </table>
-                      <a href="#" class="btn btn-primary">Renew Now</a>
-                      <a href="#" class="btn btn-primary">Change Plan</a>          
+                      <a href="{%url 'Payments:tv-sub-renew'%}" class="btn btn-primary">Renew Now</a>
+                      <a href="{%url 'Payments:tv-package' service_id %}" class="btn btn-primary">Change Plan</a> 
+                      
+                      {% endif %}
                 </div>
             </div>
         </div>

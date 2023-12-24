@@ -14,7 +14,7 @@
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="data_plan">Choose Package Plan</label>
-                            <select class="form-select form-select-lg mb-3" aria-label="Large select example">
+                            <select class="form-select form-select-lg mb-3" name="variation_code" aria-label="Large select example" id="planSelect">
                               <option selected>Select package plan</option>
                               {%for plan in package_plans %}
                               <option value="{{plan.variation_code}}" data-attribute="{{plan.variation_amount}}">{{plan.name}}</option>
@@ -49,3 +49,29 @@
 
 
 {%endblock content%}
+
+{% block extra_script %}
+<script>
+    // Function to handle the change event
+    function handleSelectChange() {
+      // Get the select element
+      var selectElement = document.getElementById("planSelect");
+      let amountElement = document.getElementById('amt')
+  
+      // Get the selected option
+      var selectedOption = selectElement.options[selectElement.selectedIndex];
+  
+      // Get the value and data-attribute of the selected option
+      var selectedValue = selectedOption.value;
+      var selectedDataAttribute = selectedOption.getAttribute("data-attribute");
+  
+      // Display the selected values
+      console.log("Selected Value: " + selectedValue);
+      console.log("Selected Data Attribute: " + selectedDataAttribute);
+      amountElement.value = selectedDataAttribute
+    }
+  
+    // Add an event listener for the change event
+    document.getElementById("planSelect").addEventListener("change", handleSelectChange);
+  </script>
+{% endblock extra_script %}

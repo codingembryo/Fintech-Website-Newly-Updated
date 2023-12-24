@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section style="height: 100vh;">
+
+    <h2>Buy Electricity Unit</h2>
+  <div class="container mt-3">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+              <div class="card-body">
+                <h3>buy electricity bill<h3>
+              <form method="post"  action="">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="smartcard_number" class="form-label">Meter Number</label>
+                    <input type="text" class="form-control" id="smartcard_number" name="meter_number" required>
+                </div>
+                <div class="mb-3">
+                    <label for="variation_code" class="form-label">Amount</label>
+                    <input type="text" class="form-control" id="amt" name="amount" required>
+                </div>
+                <div class="mb-3">
+                    <label for="variation_code" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required>
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" class="form-control" id="service_id" name="service_id" value="{{service_id}}">
+                </div>
+        
+            
+                <button type="submit" class="btn btn-primary">Purchase</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+{% endblock %}
